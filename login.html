@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Customer Login | GHOSH ONLINE CENTRE</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="auth-page">
+
+<div class="auth-card">
+
+<h1>Customer Login</h1>
+<p>আপনার Customer Account-এ প্রবেশ করুন</p>
+
+<form id="loginForm">
+
+<label>Mobile Number</label>
+<input
+id="mobile"
+type="tel"
+inputmode="numeric"
+maxlength="10"
+required
+placeholder="10 digit mobile number">
+
+<label>Password</label>
+<input
+id="password"
+type="password"
+required
+placeholder="Password">
+
+<button class="btn full" type="submit">
+Login
+</button>
+
+</form>
+
+<p>
+নতুন Customer?
+<a href="register.html">Create Account</a>
+</p>
+
+<p id="msg" class="msg"></p>
+
+</div>
+
+<script>
+document.getElementById("loginForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const users = JSON.parse(
+localStorage.getItem("ghosh_users") || "[]"
+);
+
+const mobileNumber =
+document.getElementById("mobile").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+const user = users.find(function(u){
+return u.mobile === mobileNumber &&
+u.password === password;
+});
+
+if(user){
+
+localStorage.setItem(
+"ghosh_current_user",
+JSON.stringify(user)
+);
+
+window.location.href = "dashboard.html";
+
+}else{
+
+document.getElementById("msg").textContent =
+"Mobile number অথবা Password ভুল।";
+
+}
+
+});
+</script>
+
+</body>
+</html>
