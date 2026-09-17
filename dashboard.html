@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="bn">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>My Account | GHOSH ONLINE CENTRE</title>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+<div class="nav wrap">
+
+<a href="index.html">GHOSH ONLINE CENTRE</a>
+
+<a class="login" id="logout" href="#">Logout</a>
+
+</div>
+</header>
+
+
+<main class="dashboard wrap">
+
+<div class="dash-head">
+
+<div>
+
+<small>CUSTOMER PORTAL</small>
+
+<h1 id="welcome">
+My Account
+</h1>
+
+<p id="phone"></p>
+
+</div>
+
+
+<a class="btn" href="index.html#pvc">
+New PVC Card Order
+</a>
+
+</div>
+
+
+<div class="stats">
+
+<div>
+<b>0</b>
+<span>Total Orders</span>
+</div>
+
+<div>
+<b>0</b>
+<span>Processing</span>
+</div>
+
+<div>
+<b>0</b>
+<span>Completed</span>
+</div>
+
+</div>
+
+
+<div class="panel">
+
+<h2>My Orders</h2>
+
+<div class="empty">
+
+<div>📦</div>
+
+<h3>এখনও কোনো Order নেই</h3>
+
+<p>
+Order করলে এখানে আপনার Order Status দেখা যাবে।
+</p>
+
+</div>
+
+</div>
+
+</main>
+
+
+<footer>
+© 2026 GHOSH ONLINE CENTRE
+</footer>
+
+
+<script>
+
+const u = JSON.parse(
+localStorage.getItem("ghosh_current_user") || "null"
+);
+
+
+if(!u){
+
+location.href = "login.html";
+
+}else{
+
+document.getElementById("welcome").textContent =
+"Welcome, " + u.name;
+
+document.getElementById("phone").textContent =
+"📱 " + u
