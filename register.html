@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Create Account | GHOSH ONLINE CENTRE</title>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="auth-page">
+
+<div class="auth-card">
+
+<h1>Create Account</h1>
+
+<p>GHOSH ONLINE CENTRE Customer Account তৈরি করুন</p>
+
+<form id="registerForm">
+
+<label>Customer Name</label>
+
+<input
+id="name"
+type="text"
+required
+placeholder="আপনার নাম">
+
+
+<label>Mobile Number</label>
+
+<input
+id="mobile"
+type="tel"
+inputmode="numeric"
+maxlength="10"
+required
+placeholder="10 digit mobile number">
+
+
+<label>Password</label>
+
+<input
+id="password"
+type="password"
+required
+placeholder="Password">
+
+
+<label>Confirm Password</label>
+
+<input
+id="confirmPassword"
+type="password"
+required
+placeholder="Password আবার লিখুন">
+
+
+<button class="btn full" type="submit">
+Create Account
+</button>
+
+</form>
+
+<p>
+আগেই Account আছে?
+<a href="login.html">Login করুন</a>
+</p>
+
+<p id="msg" class="msg"></p>
+
+</div>
+
+
+<script>
+
+document.getElementById("registerForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const name =
+document.getElementById("name").value.trim();
+
+const mobile =
+document.getElementById("mobile").value.trim();
+
+const password =
+document.getElementById("password").value;
+
+const confirmPassword =
+document.getElementById("confirmPassword").value;
+
+
+if(mobile.length !== 10){
+
+document.getElementById("msg").textContent =
+"সঠিক 10 digit mobile number দিন।";
+
+return;
+
+}
+
+
+if(password !== confirmPassword){
+
+document.getElementById("msg").textContent =
+"Password দুটো একই নয়।";
+
+return;
+
+}
+
+
+let users = JSON.parse(
+localStorage.getItem("ghosh_users") || "[]"
+);
+
+
+const exists = users.some(function(user){
+
+return user.mobile === mobile;
+
+});
+
+
+if(exists){
+
+document.getElementById("msg").textContent =
+"এই Mobile Number দিয়ে Account আগে থেকেই আছে।";
+
+return;
+
+}
+
+
+const newUser = {
+
+name: name,
+
+mobile: mobile,
+
+password: password
+
+};
+
+
+users.push(newUser);
+
+
+localStorage.setItem(
+"ghosh_users",
+JSON.stringify(users)
+);
+
+
+document.getElementById("msg").textContent =
+"Account সফলভাবে তৈরি হয়েছে। Login করুন।";
+
+
+setTimeout(function(){
+
+window.location.href = "login.html";
+
+}, 1000);
+
+});
+
+</script>
+
+</body>
+</html>
