@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Free Photo & Signature Tools | GHOSH ONLINE CENTRE</title>
+
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.css">
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f3f7fb;
+color:#172b4d;
+}
+
+header{
+background:#0752a4;
+color:white;
+padding:18px;
+text-align:center;
+}
+
+header h1{
+margin:0;
+font-size:24px;
+}
+
+header p{
+margin:6px 0 0;
+font-size:14px;
+}
+
+.container{
+max-width:900px;
+margin:25px auto;
+padding:15px;
+}
+
+.card{
+background:white;
+border-radius:18px;
+padding:22px;
+margin-bottom:25px;
+box-shadow:0 8px 25px rgba(0,0,0,.08);
+}
+
+.card h2{
+margin-top:0;
+color:#0752a4;
+}
+
+input,select,button{
+width:100%;
+padding:12px;
+margin-top:8px;
+margin-bottom:15px;
+border:1px solid #ccd7e5;
+border-radius:9px;
+font-size:16px;
+}
+
+button{
+background:#0752a4;
+color:white;
+border:0;
+font-weight:bold;
+cursor:pointer;
+}
+
+button:hover{
+background:#063f7e;
+}
+
+.secondary{
+background:#475569;
+}
+
+.download{
+background:#07853c;
+}
+
+.preview{
+width:100%;
+max-height:500px;
+display:none;
+margin:15px auto;
+}
+
+.info{
+background:#eef6ff;
+padding:12px;
+border-radius:10px;
+margin-bottom:15px;
+font-size:14px;
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+}
+
+.crop-area{
+max-height:500px;
+overflow:hidden;
+display:none;
+}
+
+#image{
+max-width:100%;
+display:block;
+}
+
+.result{
+display:none;
+text-align:center;
+}
+
+.result img{
+max-width:100%;
+border-radius:10px;
+border:1px solid #ddd;
+}
+
+.small{
+font-size:13px;
+color:#64748b;
+}
+
+@media(max-width:600px){
+
+.container{
+padding:10px;
+}
+
+.card{
+padding:16px;
+}
+
+.row{
+grid-template-columns:1fr;
+gap:0;
+}
+
+header h1{
+font-size:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<h1>GHOSH ONLINE CENTRE</h1>
+
+<p>Free Photo & Signature Tool</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- PHOTO TOOL -->
+
+<div class="card">
+
+<h2>📸 Photo Crop & Compress</h2>
+
+<div class="info">
+
+বড় ছবি Upload করুন → Crop করুন → Size নির্বাচন করুন → Download করুন।
+
+</div>
+
+
+<label>
+<strong>Photo Select করুন</strong>
+</label>
+
+<input
+type="file"
+id="photoInput"
+accept="image/jpeg,image/png,image/webp">
+
+
+<div class="crop-area" id="photoCropArea">
+
+<img id="photoImage">
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+<strong>Width (px)</strong>
+</label>
+
+<input
+type="number"
+id="photoWidth"
+value="200"
+min="20">
+
+</div>
+
+
+<div>
+
+<label>
+<strong>Height (px)</strong>
+</label>
+
+<input
+type="number"
+id="photoHeight"
+value="230"
+min="20">
+
+</div>
+
+</div>
+
+
+<label>
+<strong>Target File Size</strong>
+</label>
+
+<select id="photoSize">
+
+<option value="20">20 KB</option>
+<option value="50" selected>50 KB</option>
+<option value="100">100 KB</option>
+<option value="200">200 KB</option>
+<option value="500">500 KB</option>
+<option value="1024">1 MB</option>
+<option value="2048">2 MB</option>
+<option value="5120">5 MB</option>
+<option value="10240">10 MB</option>
+<option value="51200">50 MB</option>
+
+</select>
+
+
+<button onclick="createPhoto()">
+✂️ Crop & Create Photo
+</button>
+
+
+<div class="result" id="photoResult">
+
+<h3>✅ আপনার Photo তৈরি হয়েছে</h3>
+
+<img id="photoResultImage">
+
+<p id="photoInfo"></p>
+
+<a id="photoDownload" download="photo.jpg">
+
+<button class="download">
+⬇️ Download Photo
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+
+
+<!-- SIGNATURE TOOL -->
+
+<div class="card">
+
+<h2>✍️ Signature Crop & Compress</h2>
+
+<div class="info">
+
+Signature-এর ছবি Upload করুন এবং প্রয়োজন অনুযায়ী Crop ও File Size কমিয়ে Download করুন।
+
+</div>
+
+
+<label>
+<strong>Signature Select করুন</strong>
+</label>
+
+<input
+type="file"
+id="signatureInput"
+accept="image/jpeg,image/png,image/webp">
+
+
+<div class="crop-area" id="signatureCropArea">
+
+<img id="signatureImage">
+
+</div>
+
+
+<div class="row">
+
+<div>
+
+<label>
+<strong>Width (px)</strong>
+</label>
+
+<input
+type="number"
+id="signatureWidth"
+value="300"
+min="20">
+
+</div>
+
+
+<div>
+
+<label>
+<strong>Height (px)</strong>
+</label>
+
+<input
+type="number"
+id="signatureHeight"
+value="100"
+min="20">
+
+</div>
+
+</div>
+
+
+<label>
+<strong>Target File Size</strong>
+</label>
+
+<select id="signatureSize">
+
+<option value="20">20 KB</option>
+<option value="50" selected>50 KB</option>
+<option value="100">100 KB</option>
+<option value="200">200 KB</option>
+<option value="500">500 KB</option>
+<option value="1024">1 MB</option>
+<option value="2048">2 MB</option>
+
+</select>
+
+
+<button onclick="createSignature()">
+✂️ Crop & Create Signature
+</button>
+
+
+<div class="result" id="signatureResult">
+
+<h3>✅ আপনার Signature তৈরি হয়েছে</h3>
+
+<img id="signatureResultImage">
+
+<p id="signatureInfo"></p>
+
+<a id="signatureDownload" download="signature.jpg">
+
+<button class="download">
+⬇️ Download Signature
+</button>
+
+</a>
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>ℹ️ গুরুত্বপূর্ণ</h2>
+
+<p class="small">
+
+এই Tool-এ আপনার ছবি এই website-এর server-এ upload না করেই browser-এর মধ্যেই processing করার চেষ্টা করা হয়।
+
+সরকারি চাকরি বা অন্য কোনো application-এর ক্ষেত্রে যে Photo/Signature size ও dimension চাওয়া হয়েছে, সেটি আগে দেখে তারপর সেই অনুযায়ী Width, Height ও Target File Size নির্বাচন করুন।
+
+</p>
+
+</div>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/cropperjs@1.6.2/dist/cropper.min.js"></script>
+
+
+<script>
+
+let photoCropper=null;
+let signatureCropper=null;
+
+
+/* PHOTO */
+
+document.getElementById("photoInput").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const url=URL.createObjectURL(file);
+
+const image=document.getElementById
