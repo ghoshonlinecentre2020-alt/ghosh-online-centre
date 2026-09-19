@@ -429,4 +429,183 @@ if(!file)return;
 
 const url=URL.createObjectURL(file);
 
-const image=document.getElementById
+const image=document.getElementByIdconst image=document.getElementById
+("photoImage");
+document.getElementById("photoCropArea").style.display="block";
+image.src=url;
+
+image.onload=function(){
+
+if(photoCropper){
+photoCropper.destroy();
+}
+
+photoCropper=new Cropper(image,{
+aspectRatio:parseFloat(document.getElementById("photoWidth").value) /
+parseFloat(document.getElementById("photoHeight").value),
+viewMode:1,
+autoCropArea:1,
+responsive:true
+});
+
+};
+});
+
+
+/* SIGNATURE */
+
+document.getElementById("signatureInput").addEventListener("change",function(e){
+
+const file=e.target.files[0];
+
+if(!file)return;
+
+const url=URL.createObjectURL(file);
+
+const image=document.getElementById("signatureImage");
+
+document.getElementById("signatureCropArea").style.display="block";
+
+image.src=url;
+
+image.onload=function(){
+
+if(signatureCropper){
+signatureCropper.destroy();
+}
+
+signatureCropper=new Cropper(image,{
+aspectRatio:parseFloat(document.getElementById("signatureWidth").value) /
+parseFloat(document.getElementById("signatureHeight").value),
+viewMode:1,
+autoCropArea:1,
+responsive:true
+});
+
+};
+
+});
+
+
+/* COMPRESS IMAGE */
+
+function compressImage(canvas,targetKB,callback){
+
+let quality=0.95;
+
+function tryCompress(){
+
+canvas.toBlob(function(blob){
+
+const sizeKB=blob.size/1024;
+
+if(sizeKB<=targetKB || quality<=0.05){
+
+callback(blob);
+
+return;
+
+}
+
+quality-=0.05;
+
+tryCompress();
+
+},"image/jpeg",quality);
+
+}
+
+tryCompress();
+
+}
+
+
+/* CREATE PHOTO */
+
+function createPhoto(){
+
+if(!photoCropper){
+
+alert("আগে একটি Photo Select করুন।");
+
+return;
+
+}
+
+const width=parseInt(document.getElementById("photoWidth").value);
+
+const height=parseInt(document.getElementById("photoHeight").value);
+
+const targetKB=parseInt(document.getElementById("photoSize").value);
+
+const canvas=photoCropper.getCroppedCanvas({
+width:width,
+height:height,
+imageSmoothingEnabled:true,
+imageSmoothingQuality:"high"
+});
+
+compressImage(canvas,targetKB,function(blob){
+
+const url=URL.createObjectURL(blob);
+
+document.getElementById("photoResultImage").src=url;
+
+document.getElementById("photoInfo").innerText=
+"Size: "+(blob.size/1024).toFixed(1)+" KB | Dimension: "+width+" × "+height+" px";
+
+document.getElementById("photoDownload").href=url;
+
+document.getElementById("photoResult").style.display="block";
+
+});
+
+}
+
+
+/* CREATE SIGNATURE */
+
+function createSignature(){
+
+if(!signatureCropper){
+
+alert("আগে একটি Signature Select করুন।");
+
+return;
+
+}
+
+const width=parseInt(document.getElementById("signatureWidth").value);
+
+const height=parseInt(document.getElementById("signatureHeight").value);
+
+const targetKB=parseInt(document.getElementById("signatureSize").value);
+
+const canvas=signatureCropper.getCroppedCanvas({
+width:width,
+height:height,
+imageSmoothingEnabled:true,
+imageSmoothingQuality:"high"
+});
+
+compressImage(canvas,targetKB,function(blob){
+
+const url=URL.createObjectURL(blob);
+
+document.getElementById("signatureResultImage").src=url;
+
+document.getElementById("signatureInfo").innerText=
+"Size: "+(blob.size/1024).toFixed(1)+" KB | Dimension: "+width+" × "+height+" px";
+
+document.getElementById("signatureDownload").href=url;
+
+document.getElementById("signatureResult").style.display="block";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
