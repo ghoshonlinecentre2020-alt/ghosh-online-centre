@@ -429,8 +429,8 @@ if(!file)return;
 
 const url=URL.createObjectURL(file);
 
-const image=document.getElementByIdconst image=document.getElementById
-("photoImage");
+
+const image=document.getElementById("photoImage");
 document.getElementById("photoCropArea").style.display="block";
 image.src=url;
 
@@ -441,8 +441,8 @@ photoCropper.destroy();
 }
 
 photoCropper=new Cropper(image,{
-aspectRatio:parseFloat(document.getElementById("photoWidth").value) /
-parseFloat(document.getElementById("photoHeight").value),
+aspectRatio:parseFloat(document.getElementById("photoWidth").value)/parseFloat(document.getElementById("photoHeight").value),
+
 viewMode:1,
 autoCropArea:1,
 responsive:true
