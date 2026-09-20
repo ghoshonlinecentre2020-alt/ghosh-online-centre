@@ -607,5 +607,55 @@ document.getElementById("signatureResult").style.display="block";
 
 </script>
 
+<!-- PASSPORT PHOTO MAKER -->
+
+<div class="card">
+<h2>📸 Passport Photo Maker</h2>
+
+<label>ছবি নির্বাচন করুন</label>
+<input type="file" id="passportInput" accept="image/*">
+
+<label>Passport Photo Size</label>
+<select id="passportSize">
+<option value="35x45">35 × 45 mm</option>
+<option value="25x35">25 × 35 mm</option>
+<option value="30x40">30 × 40 mm</option>
+</select>
+
+<label>কত কপি চাই?</label>
+<select id="passportCopies">
+<option value="4">4 Copies</option>
+<option value="6">6 Copies</option>
+<option value="8">8 Copies</option>
+<option value="10">10 Copies</option>
+<option value="12">12 Copies</option>
+<option value="16">16 Copies</option>
+<option value="20">20 Copies</option>
+</select>
+
+<label>Print Paper</label>
+<select id="passportPaper">
+<option value="4x6">4 × 6 inch</option>
+<option value="A4">A4</option>
+</select>
+
+<button onclick="createPassportSheet()">
+Create Passport Photo Sheet
+</button>
+
+<div id="passportCropArea" style="display:none;">
+<img id="passportImage" style="max-width:100%;">
+</div>
+
+<div id="passportResult" style="display:none;">
+<h3>আপনার Passport Photo তৈরি হয়েছে</h3>
+<canvas id="passportCanvas" style="max-width:100%;"></canvas>
+<br>
+<button onclick="downloadPassportSheet()">Download / Print</button>
+</div>
+
+</script>
+
 </body>
 </html>
+
