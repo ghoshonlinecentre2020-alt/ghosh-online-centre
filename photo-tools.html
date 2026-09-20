@@ -605,54 +605,157 @@ document.getElementById("signatureResult").style.display="block";
 
 }
 
-</script>
+/* PASSPORT PHOTO MAKER */
 
-<!-- PASSPORT PHOTO MAKER -->
+let passportCropper = null;
 
-<div class="card">
-<h2>📸 Passport Photo Maker</h2>
+document.getElementById("passportInput").addEventListener("change", function(e){
 
-<label>ছবি নির্বাচন করুন</label>
-<input type="file" id="passportInput" accept="image/*">
+    const file = e.target.files[0];
 
-<label>Passport Photo Size</label>
-<select id="passportSize">
-<option value="35x45">35 × 45 mm</option>
-<option value="25x35">25 × 35 mm</option>
-<option value="30x40">30 × 40 mm</option>
-</select>
+    if(!file) return;
 
-<label>কত কপি চাই?</label>
-<select id="passportCopies">
-<option value="4">4 Copies</option>
-<option value="6">6 Copies</option>
-<option value="8">8 Copies</option>
-<option value="10">10 Copies</option>
-<option value="12">12 Copies</option>
-<option value="16">16 Copies</option>
-<option value="20">20 Copies</option>
-</select>
+    const reader = new FileReader();
 
-<label>Print Paper</label>
-<select id="passportPaper">
-<option value="4x6">4 × 6 inch</option>
-<option value="A4">A4</option>
-</select>
+    reader.onload = function(event){
 
-<button onclick="createPassportSheet()">
-Create Passport Photo Sheet
-</button>
+        const image = document.getElementById("passportImage");
 
-<div id="passportCropArea" style="display:none;">
-<img id="passportImage" style="max-width:100%;">
-</div>
+        image.src = event.target.result;
 
-<div id="passportResult" style="display:none;">
-<h3>আপনার Passport Photo তৈরি হয়েছে</h3>
-<canvas id="passportCanvas" style="max-width:100%;"></canvas>
-<br>
-<button onclick="downloadPassportSheet()">Download / Print</button>
-</div>
+        document.getElementById("passportCropArea").style.display = "block";
+
+        if(passportCropper){
+            passportCropper.destroy();
+        }
+
+        passportCropper = new Cropper(image,{
+            aspectRatio: 35 / 45,
+            viewMode: 1,
+            autoCropArea: 1,
+            responsive: true
+        });
+
+    };
+
+    reader.readAsDataURL(file);
+
+});
+
+
+function createPassportSheet(){
+
+    if(!passportCropper){
+        alert("আগে একটি ছবি নির্বাচন করুন");
+        return;
+    }
+
+    const size = document.getElementById("passportSize").value;
+
+    let width;
+    let height;
+
+    if(size === "35x45"){
+        width = 413;
+        height = 531;
+    }
+
+    if(size === "25x35"){
+        width = 295;
+        height = 413;
+    }
+
+    if(size === "30x40"){
+        width = 354;
+        height = 472;
+    }
+
+    const copies = parseInt(
+        document.getElementById("passportCopies").value
+    );
+
+    const paper = document.getElementById("passportPaper").value;
+
+    let sheetWidth;
+    let sheetHeight;
+
+    if(paper === "4x6"){
+        sheetWidth = 1200;
+        sheetHeight = 1800;
+    }else{
+        sheetWidth = 2480;
+        sheetHeight = 3508;
+    }
+
+    const canvas = document.getElementById("passportCanvas");
+
+    canvas.width = sheetWidth;
+    canvas.height = sheetHeight;
+
+    const ctx = canvas.getContext("2d");
+
+    ctx.fillStyle = "white";
+    ctx.fillRect(0,0,sheetWidth,sheetHeight);
+
+    const croppedCanvas = passportCropper.getCroppedCanvas({
+        width: width,
+        height: height,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: "high"
+    });
+
+    const margin = 20;
+    const gap = 10;
+
+    const columns = Math.floor(
+        (sheetWidth - margin * 2 + gap) /
+        (width + gap)
+    );
+
+    const rows = Math.floor(
+        (sheetHeight - margin * 2 + gap) /
+        (height + gap)
+    );
+
+    let count = 0;
+
+    for(let row = 0; row < rows && count < copies; row++){
+
+        for(let col = 0; col < columns && count < copies; col++){
+
+            const x = margin + col * (width + gap);
+            const y = margin + row * (height + gap);
+
+            ctx.drawImage(
+                croppedCanvas,
+                x,
+                y,
+                width,
+                height
+            );
+
+            count++;
+        }
+    }
+
+    document.getElementById("passportResult").style.display = "block";
+}
+
+
+function downloadPassportSheet(){
+
+    const canvas = document.getElementById("passportCanvas");
+
+    const link = document.createElement("a");
+
+    link.download = "passport-photo-sheet.jpg";
+
+    link.href = canvas.toDataURL("image/jpeg", 0.95);
+
+    link.click();
+}
+
+
 
 </script>
 
