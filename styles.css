@@ -315,4 +315,117 @@ footer{
   background:#092542;
   color:#dcecff;
   text-align:center;
-  padding:30px 15
+  padding:30px 15px;
+}
+/* ===== MOBILE RESPONSIVE FIX ===== */
+
+html,
+body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Main containers */
+.container,
+main,
+section,
+header,
+footer {
+    max-width: 100%;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+
+    body {
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .nav {
+        width: 100%;
+        max-width: 100%;
+        min-height: auto;
+        padding: 8px 12px;
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .nav img {
+        max-width: 120px;
+        height: auto;
+    }
+
+    .nav nav,
+    .nav a {
+        font-size: 13px;
+    }
+
+    /* Headings */
+    h1 {
+        font-size: 32px;
+        line-height: 1.15;
+    }
+
+    h2 {
+        font-size: 26px;
+        line-height: 1.2;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    p {
+        font-size: 15px;
+        line-height: 1.5;
+    }
+
+    /* Hero / banner */
+    .hero,
+    .banner {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .hero img,
+    .banner img {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Service grid */
+    .services,
+    .service-grid {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .service-card {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    /* Prevent text from going outside */
+    .content,
+    .row,
+    .container {
+        width: 100%;
+        max-width: 100%;
+    }
+}
