@@ -1,0 +1,10 @@
+GHOSH ONLINE CENTRE — NEW DESIGN
+
+Replace/add these files in your GitHub repository:
+1. index.html
+2. styles.css
+3. logo.svg
+
+Keep your existing login.html, register.html, dashboard.html, photo-tools.html, CNAME and other files.
+The new homepage links to the existing login.html and photo-tools.html.
+WhatsApp used: +91 81677 40024
