@@ -474,7 +474,67 @@ accept="image/jpeg,image/png,image/webp">
 
 </div>
 
-</div><div class="card">
+</div>
+
+<div class="card">
+
+<h2>📄 JPG ↔ PDF Converter</h2>
+
+<div class="info">
+ছবি থেকে PDF তৈরি করুন অথবা PDF থেকে JPG ছবি তৈরি করুন।
+</div>
+
+<h3>🖼️ JPG → PDF</h3>
+
+<label>
+<strong>ছবি নির্বাচন করুন</strong>
+</label>
+
+<input
+type="file"
+id="jpgToPdfInput"
+accept="image/jpeg,image/png"
+multiple>
+
+<button onclick="convertJpgToPdf()">
+📄 Create PDF
+</button>
+
+<div class="result" id="jpgToPdfResult">
+<h3>✅ PDF তৈরি হয়েছে</h3>
+
+<button class="download" onclick="downloadJpgPdf()">
+⬇️ Download PDF
+</button>
+</div>
+
+
+<hr>
+
+
+<h3>📑 PDF → JPG</h3>
+
+<label>
+<strong>PDF নির্বাচন করুন</strong>
+</label>
+
+<input
+type="file"
+id="pdfToJpgInput"
+accept="application/pdf">
+
+<button onclick="convertPdfToJpg()">
+🖼️ Convert to JPG
+</button>
+
+<div class="result" id="pdfToJpgResult">
+<h3>✅ JPG তৈরি হয়েছে</h3>
+
+<div id="pdfJpgOutput"></div>
+
+</div>
+
+</div>
 
 <h2>ℹ️ গুরুত্বপূর্ণ</h2>
 
