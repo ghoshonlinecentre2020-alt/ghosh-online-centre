@@ -392,7 +392,89 @@ min="20">
 </div>
 
 
+<!-- PASSPORT PHOTO MAKER -->
+
 <div class="card">
+
+<h2>🪪 Passport Photo Maker</h2>
+
+<div class="info">
+ছবি Upload করুন → Crop করুন → Passport Size নির্বাচন করুন → কতগুলি Copy চান নির্বাচন করুন → Print Sheet তৈরি করুন।
+</div>
+
+<label>
+<strong>Photo Select করুন</strong>
+</label>
+
+<input
+type="file"
+id="passportInput"
+accept="image/jpeg,image/png,image/webp">
+
+<div class="crop-area" id="passportCropArea">
+
+<img id="passportImage">
+
+</div>
+
+<label>
+<strong>Passport Photo Size</strong>
+</label>
+
+<select id="passportSize">
+
+<option value="35x45">35 × 45 mm</option>
+<option value="25x35">25 × 35 mm</option>
+<option value="30x40">30 × 40 mm</option>
+
+</select>
+
+<label>
+<strong>কতগুলি Photo চান?</strong>
+</label>
+
+<select id="passportCopies">
+
+<option value="4">4 Copies</option>
+<option value="6">6 Copies</option>
+<option value="8">8 Copies</option>
+<option value="10">10 Copies</option>
+<option value="12">12 Copies</option>
+<option value="16">16 Copies</option>
+<option value="20">20 Copies</option>
+
+</select>
+
+<label>
+<strong>Paper Size</strong>
+</label>
+
+<select id="passportPaper">
+
+<option value="4x6">4 × 6 inch</option>
+<option value="A4">A4</option>
+
+</select>
+
+<button onclick="createPassportSheet()">
+✂️ Create Passport Photo Sheet
+</button>
+
+<div class="result" id="passportResult">
+
+<h3>✅ Passport Photo Sheet তৈরি হয়েছে</h3>
+
+<canvas id="passportCanvas" style="max-width:100%;"></canvas>
+
+<br>
+
+<button class="download" onclick="downloadPassportSheet()">
+⬇️ Download Passport Photo Sheet
+</button>
+
+</div>
+
+</div><div class="card">
 
 <h2>ℹ️ গুরুত্বপূর্ণ</h2>
 
