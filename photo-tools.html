@@ -761,11 +761,11 @@ document.getElementById("passportInput").addEventListener("change", function(e){
 
     reader.onload = function(event){
 
-        const image = document.getElementById("passportImage");
+    const image = document.getElementById("passportImage");
 
-        image.src = event.target.result;
+    document.getElementById("passportCropArea").style.display = "block";
 
-        document.getElementById("passportCropArea").style.display = "block";
+    image.onload = function(){
 
         if(passportCropper){
             passportCropper.destroy();
@@ -779,6 +779,10 @@ document.getElementById("passportInput").addEventListener("change", function(e){
         });
 
     };
+
+    image.src = event.target.result;
+
+};
 
     reader.readAsDataURL(file);
 
